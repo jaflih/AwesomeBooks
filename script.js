@@ -44,9 +44,9 @@ class BooksManager {
 }
 
 let book1 = new Book(0, "hey", "yo");
-let book2 = new Book(0, "hey", "yo");
-let book3 = new Book(0, "hey", "yo");
-let book4 = new Book(0, "hey", "test");
+let book2 = new Book(1, "hey1", "yo");
+let book3 = new Book(2, "hey2", "yo");
+let book4 = new Book(3, "hey3", "test");
 let manager = new BooksManager([]);
 
 function createHtml(parent, tag) {
@@ -56,8 +56,9 @@ function createHtml(parent, tag) {
 }
 
 function displayBooks(books) {
+  manager.BOOK_COLLECTION.innerText = "";
+
   manager.books.forEach((book) => {
-    manager.BOOK_COLLECTION.innerText = "";
     console.log(book);
 
     const div = createHtml(manager.BOOK_COLLECTION, "div");
