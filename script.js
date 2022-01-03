@@ -1,9 +1,8 @@
-let BOOKS = [];
+let books = [];
 let counter = 0;
 
 const BOOK_COLLECTION = document.querySelector('#book_collection');
 const FORM = document.querySelector('form');
-const ADD_BUTTON = document.querySelector('#add_button');
 
 function createHtml(parent, tag) {
   const element = document.createElement(tag);
@@ -12,26 +11,20 @@ function createHtml(parent, tag) {
 }
 
 function saveBooks() {
-  localStorage.setItem('books', JSON.stringify(BOOKS));
+  localStorage.setItem('books', JSON.stringify(books));
 }
 
 function loadBooks() {
   if (localStorage.getItem('books') != null) {
-    BOOKS = JSON.parse(localStorage.getItem('books'));
+    books = JSON.parse(localStorage.getItem('books'));
   }
 }
 loadBooks();
 
-function displayBook() {
+function displayBooks() {
   BOOK_COLLECTION.innerText = '';
 
-  function removeBook(index) {
-    BOOKS = BOOKS.filter((book) => book.id !== index);
-    displayBook();
-    saveBooks();
-  }
-
-  BOOKS.forEach((book) => {
+  books.forEach((book) => {
     const div = createHtml(BOOK_COLLECTION, 'div');
     const p = createHtml(div, 'p');
 
@@ -42,12 +35,15 @@ function displayBook() {
     button.innerText = 'Remove';
     button.id = book.id;
     button.addEventListener('click', () => {
-      removeBook(book.id);
+      const index = book.id;
+      books = books.filter((book) => book.id !== index);
+      displayBooks();
+      saveBooks();
     });
     createHtml(div, 'hr');
   });
 }
-displayBook();
+displayBooks();
 
 function addBook() {
   const book = {
@@ -55,15 +51,14 @@ function addBook() {
     title: FORM.title.value,
     author: FORM.author.value,
   };
-  BOOKS.push(book);
-  displayBook();
+  books.push(book);
+  displayBooks();
   saveBooks();
   counter += 1;
 }
 
-ADD_BUTTON.addEventListener('click', (event) => {
+document.querySelector('#add_button').addEventListener('click', (event) => {
   event.preventDefault();
   addBook();
-  FORM.title.value = '';
-  FORM.author.value = '';
+  FORM.reset();
 });
