@@ -37,8 +37,15 @@ class BooksManager {
   loadBooks() {
     if (localStorage.getItem('books') != null) {
       this.books = JSON.parse(localStorage.getItem('books'));
-      this.displayBooks();
-      counter = this.books[this.books.length - 1].id;
+      if (this.books.length === 0) {
+        this.BOOK_COLLECTION.innerHTML = 'No books found.';
+        counter = 0;
+      } else {
+        this.displayBooks();
+        counter = this.books[this.books.length - 1].id;
+      }
+    } else {
+      this.BOOK_COLLECTION.innerHTML = 'No books found.';
     }
   }
 
@@ -52,9 +59,7 @@ class BooksManager {
     this.books.forEach((book) => {
       const li = createHtml(this.BOOK_COLLECTION, 'li');
       const p = createHtml(li, 'p');
-
-      createHtml(p, 'span').innerText = book.title;
-      createHtml(p, 'br');
+      createHtml(p, 'span').innerText = `"${book.title}" by `;
       createHtml(p, 'span').innerText = book.author;
       const button = createHtml(li, 'button');
       button.innerText = 'Remove';
@@ -62,7 +67,6 @@ class BooksManager {
       button.addEventListener('click', () => {
         this.removeBook(book.id);
       });
-      createHtml(li, 'hr');
     });
   }
 }
