@@ -5,6 +5,27 @@
   margin: 0;
 }
 
+.navigation-bar {
+  display: flex;
+  border: 3px solid black;
+  margin: 1rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.navigation-bar ul {
+  list-style: none;
+  display: flex;
+}
+
+.navigation-bar ul li a {
+  color: #000;
+  text-decoration: none;
+  border-right: 1px solid black;
+  padding: 0 1rem;
+}
+
 h1 {
   text-align: center;
 }
@@ -17,17 +38,17 @@ h1 {
   display: none;
 }
 
-li {
+#book_list li {
   padding: 10px;
   display: flex;
   justify-content: space-between;
 }
 
-li:nth-child(odd) {
+#book_list li:nth-child(odd) {
   background-color: #80808057;
 }
 
-ul {
+#book_list ul {
   list-style: none;
   padding-left: 0;
   border: 3px solid black;
@@ -40,13 +61,7 @@ ul {
   box-shadow: 3px 2px 1px black;
 }
 
-hr {
-  border: 1px solid black;
-  width: 50%;
-  margin: auto;
-}
-
-h2 {
+form h2 {
   margin-top: 30px;
 }
 
