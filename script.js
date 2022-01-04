@@ -32,6 +32,9 @@ class BooksManager {
     this.books = this.books.filter((book) => book.id !== index);
     this.displayBooks();
     this.saveBooks();
+    if (this.books.length === 0) {
+      this.BOOK_COLLECTION.innerHTML = 'No books found.';
+    }
   }
 
   loadBooks() {

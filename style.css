@@ -73,3 +73,29 @@ input {
   color: black;
   opacity: 1;
 }
+
+@media screen and (min-width: 700px) {
+  #book_collection {
+    width: 60%;
+    margin: 50px auto;
+  }
+
+  hr {
+    margin-top: 50px;
+  }
+
+  form {
+    width: 25%;
+    margin: auto;
+  }
+
+  #add_button {
+    margin-right: 4rem;
+  }
+
+  #book_collection button:hover,
+  #add_button:hover {
+    background-color: #1b1b1b57;
+    color: #fff;
+  }
+}
