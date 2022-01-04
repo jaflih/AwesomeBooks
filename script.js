@@ -1,54 +1,48 @@
 /* eslint-disable max-classes-per-file */
 
-let counter = 0;
-
-function createHtml(parent, tag) {
-  const element = document.createElement(tag);
-  parent.appendChild(element);
-  return element;
-}
-
 class Book {
-  constructor(id, title, author) {
-    this.id = id;
+  constructor(title, author) {
     this.title = title;
     this.author = author;
   }
 }
 
 class BooksManager {
-  constructor(books) {
-    this.books = books;
+  constructor() {
     this.BOOK_COLLECTION = document.querySelector('#book_collection');
+    this.books = [];
   }
 
-  addBook(book) {
-    this.books.push(book);
-    this.displayBooks();
-    this.saveBooks();
-  }
-
-  removeBook(index) {
-    this.books = this.books.filter((book) => book.id !== index);
-    this.displayBooks();
-    this.saveBooks();
-    if (this.books.length === 0) {
+  loadBooks() {
+    if (localStorage.getItem('books')) {
+      this.books = JSON.parse(localStorage.getItem('books'));
+      this.BOOK_COLLECTION.innerHTML = this.books.length === 0 ? 'No books found.' : '';
+      this.books.forEach((book) => {
+        this.displayBook(book);
+      });
+    } else {
       this.BOOK_COLLECTION.innerHTML = 'No books found.';
     }
   }
 
-  loadBooks() {
-    if (localStorage.getItem('books') != null) {
-      this.books = JSON.parse(localStorage.getItem('books'));
-      if (this.books.length === 0) {
-        this.BOOK_COLLECTION.innerHTML = 'No books found.';
-        counter = 0;
-      } else {
-        this.displayBooks();
-        counter = this.books[this.books.length - 1].id;
-      }
-    } else {
+  addBook(book) {
+    if (this.books.length === 0) {
+      this.BOOK_COLLECTION.innerHTML = '';
+    }
+    this.books.push(book);
+    this.displayBook(book);
+    this.saveBooks();
+  }
+
+  removeBook(book) {
+    let index = Array.from(book.parentNode.children).indexOf(book);
+    this.books.splice(index, 1);
+    this.saveBooks();
+
+    if (this.books.length === 0) {
       this.BOOK_COLLECTION.innerHTML = 'No books found.';
+    } else {
+      this.BOOK_COLLECTION.removeChild(book);
     }
   }
 
@@ -56,41 +50,43 @@ class BooksManager {
     localStorage.setItem('books', JSON.stringify(this.books));
   }
 
-  displayBooks() {
-    this.BOOK_COLLECTION.innerText = '';
-
-    this.books.forEach((book) => {
-      const li = createHtml(this.BOOK_COLLECTION, 'li');
-      const p = createHtml(li, 'p');
-      createHtml(p, 'span').innerText = `"${book.title}" by `;
-      createHtml(p, 'span').innerText = book.author;
-      const button = createHtml(li, 'button');
-      button.innerText = 'Remove';
-      button.id = book.id;
-      button.addEventListener('click', () => {
-        this.removeBook(book.id);
-      });
+  displayBook(book) {
+    const li = this.createHtml(this.BOOK_COLLECTION, 'li');
+    const p = this.createHtml(li, 'p');
+    this.createHtml(p, 'span').innerText = `"${book.title}" by ${book.author}`;
+    const button = this.createHtml(li, 'button');
+    button.innerText = 'Remove';
+    button.addEventListener('click', () => {
+      this.removeBook(li);
     });
+  }
+
+  createHtml(parent, tag) {
+    const element = document.createElement(tag);
+    parent.appendChild(element);
+    return element;
   }
 }
 
 const FORM = document.querySelector('form');
-const MANAGER = new BooksManager([]);
+const MANAGER = new BooksManager();
+const SMALL = document.querySelector('small');
+
+const showError = (input) => {
+  SMALL.innerHTML = 'You need to enter an ' + input;
+  SMALL.classList.remove('collapse');
+};
 
 document.querySelector('#add_button').addEventListener('click', (event) => {
   event.preventDefault();
-  const small = document.querySelector('small');
   if (FORM.title.validity.valueMissing) {
-    small.innerHTML = 'You need to enter an Title';
-    small.classList.remove('collapse');
+    showError('Title');
   } else if (FORM.author.validity.valueMissing) {
-    small.innerHTML = 'You need to enter an Author';
-    small.classList.remove('collapse');
+    showError('Author');
   } else {
-    counter += 1;
-    MANAGER.addBook(new Book(counter, FORM.title.value, FORM.author.value));
+    MANAGER.addBook(new Book(FORM.title.value, FORM.author.value));
     FORM.reset();
-    small.classList.add('collapse');
+    SMALL.classList.add('collapse');
   }
 });
 
