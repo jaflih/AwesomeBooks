@@ -1,1 +1,101 @@
 /* AWESOME BOOKS */
+
+* {
+  font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+#book_collection {
+  margin: 10px 10px 50px 10px;
+}
+
+.collapse {
+  display: none;
+}
+
+li {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+li:nth-child(odd) {
+  background-color: #80808057;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  border: 3px solid black;
+}
+
+#book_collection button,
+#add_button {
+  background-color: white;
+  border: 2px solid black;
+  box-shadow: 3px 2px 1px black;
+}
+
+hr {
+  border: 1px solid black;
+  width: 50%;
+  margin: auto;
+}
+
+h2 {
+  margin-top: 30px;
+}
+
+form {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  margin: 10px;
+  width: 70%;
+  border: 2px solid black;
+}
+
+#add_button {
+  align-self: flex-end;
+  width: auto;
+  margin-right: 3.75rem;
+}
+
+::placeholder {
+  color: black;
+  opacity: 1;
+}
+
+@media screen and (min-width: 700px) {
+  #book_collection {
+    width: 60%;
+    margin: 50px auto;
+  }
+
+  hr {
+    margin-top: 50px;
+  }
+
+  form {
+    width: 25%;
+    margin: auto;
+  }
+
+  #add_button {
+    margin-right: 4rem;
+  }
+
+  #book_collection button:hover,
+  #add_button:hover {
+    background-color: #1b1b1b57;
+    color: #fff;
+  }
+}

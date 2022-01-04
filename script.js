@@ -1,8 +1,6 @@
-let books = [];
-let counter = 0;
+/* eslint-disable max-classes-per-file */
 
-const BOOK_COLLECTION = document.querySelector('#book_collection');
-const FORM = document.querySelector('form');
+let counter = 0;
 
 function createHtml(parent, tag) {
   const element = document.createElement(tag);
@@ -10,55 +8,90 @@ function createHtml(parent, tag) {
   return element;
 }
 
-function saveBooks() {
-  localStorage.setItem('books', JSON.stringify(books));
-}
-
-function loadBooks() {
-  if (localStorage.getItem('books') != null) {
-    books = JSON.parse(localStorage.getItem('books'));
+class Book {
+  constructor(id, title, author) {
+    this.id = id;
+    this.title = title;
+    this.author = author;
   }
 }
-loadBooks();
 
-function displayBooks() {
-  BOOK_COLLECTION.innerText = '';
+class BooksManager {
+  constructor(books) {
+    this.books = books;
+    this.BOOK_COLLECTION = document.querySelector('#book_collection');
+  }
 
-  books.forEach((book) => {
-    const div = createHtml(BOOK_COLLECTION, 'div');
-    const p = createHtml(div, 'p');
+  addBook(book) {
+    this.books.push(book);
+    this.displayBooks();
+    this.saveBooks();
+  }
 
-    createHtml(p, 'span').innerText = book.title;
-    createHtml(p, 'br');
-    createHtml(p, 'span').innerText = book.author;
-    const button = createHtml(div, 'button');
-    button.innerText = 'Remove';
-    button.id = book.id;
-    button.addEventListener('click', () => {
-      const index = book.id;
-      books = books.filter((book) => book.id !== index);
-      displayBooks();
-      saveBooks();
+  removeBook(index) {
+    this.books = this.books.filter((book) => book.id !== index);
+    this.displayBooks();
+    this.saveBooks();
+    if (this.books.length === 0) {
+      this.BOOK_COLLECTION.innerHTML = 'No books found.';
+    }
+  }
+
+  loadBooks() {
+    if (localStorage.getItem('books') != null) {
+      this.books = JSON.parse(localStorage.getItem('books'));
+      if (this.books.length === 0) {
+        this.BOOK_COLLECTION.innerHTML = 'No books found.';
+        counter = 0;
+      } else {
+        this.displayBooks();
+        counter = this.books[this.books.length - 1].id;
+      }
+    } else {
+      this.BOOK_COLLECTION.innerHTML = 'No books found.';
+    }
+  }
+
+  saveBooks() {
+    localStorage.setItem('books', JSON.stringify(this.books));
+  }
+
+  displayBooks() {
+    this.BOOK_COLLECTION.innerText = '';
+
+    this.books.forEach((book) => {
+      const li = createHtml(this.BOOK_COLLECTION, 'li');
+      const p = createHtml(li, 'p');
+      createHtml(p, 'span').innerText = `"${book.title}" by `;
+      createHtml(p, 'span').innerText = book.author;
+      const button = createHtml(li, 'button');
+      button.innerText = 'Remove';
+      button.id = book.id;
+      button.addEventListener('click', () => {
+        this.removeBook(book.id);
+      });
     });
-    createHtml(div, 'hr');
-  });
+  }
 }
-displayBooks();
 
-function addBook() {
-  const book = {
-    id: counter,
-    title: FORM.title.value,
-    author: FORM.author.value,
-  };
-  books.push(book);
-  displayBooks();
-  saveBooks();
-  counter += 1;
-}
+const FORM = document.querySelector('form');
+const MANAGER = new BooksManager([]);
 
 document.querySelector('#add_button').addEventListener('click', (event) => {
   event.preventDefault();
-  addBook();
-  FORM.reset();
+  const small = document.querySelector('small');
+  if (FORM.title.validity.valueMissing) {
+    small.innerHTML = 'You need to enter an Title';
+    small.classList.remove('collapse');
+  } else if (FORM.author.validity.valueMissing) {
+    small.innerHTML = 'You need to enter an Author';
+    small.classList.remove('collapse');
+  } else {
+    counter += 1;
+    MANAGER.addBook(new Book(counter, FORM.title.value, FORM.author.value));
+    FORM.reset();
+    small.classList.add('collapse');
+  }
 });
+
+MANAGER.loadBooks();
