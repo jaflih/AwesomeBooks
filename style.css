@@ -42,6 +42,10 @@ footer {
   padding: 0 1rem;
 }
 
+.navigation-bar ul li a.active {
+  color: rgb(58, 169, 206);
+}
+
 .navigation-bar ul li:nth-last-child(1) a {
   border-right: none;
   padding-right: 0;
@@ -53,10 +57,6 @@ form h2 {
 
 .navigation-bar h2 {
   font-size: 16px;
-}
-
-.navigation-bar ul li:nth-last-child(3) a {
-  color: rgb(58, 169, 206);
 }
 
 .date {

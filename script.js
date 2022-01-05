@@ -98,30 +98,27 @@ MANAGER.loadBooks();
 
 //
 document.querySelector('#add_new').addEventListener('click', () => {
-  document.querySelector('#add_new').style.color = 'rgb(58, 169, 206)';
-  document.querySelector('#list').style.color = 'black';
-  document.querySelector('#contact').style.color = 'black';
-  document.querySelector('#book_list').classList.add('collapse');
-  document.querySelector('#add_books').classList.remove('collapse');
-  document.querySelector('#contact-information').classList.add('collapse');
+  navigation('add_books', 'add_new');
 });
 
 document.querySelector('#contact').addEventListener('click', () => {
-  document.querySelector('#add_new').style.color = 'black';
-  document.querySelector('#list').style.color = 'black';
-  document.querySelector('#contact').style.color = 'rgb(58, 169, 206)';
-  document.querySelector('#book_list').classList.add('collapse');
-  document.querySelector('#add_books').classList.add('collapse');
-  document.querySelector('#contact-information').classList.remove('collapse');
+  navigation('contact-information', 'contact');
 });
 
 document.querySelector('#list').addEventListener('click', () => {
-  document.querySelector('#contact').style.color = 'black';
-  document.querySelector('#add_new').style.color = 'black';
-  document.querySelector('#list').style.color = 'rgb(58, 169, 206)';
-  document.querySelector('#book_list').classList.remove('collapse');
-  document.querySelector('#add_books').classList.add('collapse');
-  document.querySelector('#contact-information').classList.add('collapse');
+  navigation('book_list', 'list');
 });
+
+function navigation(activeTab, activeA) {
+  document.querySelector(`#${activeTab}`).classList.remove('collapse');
+  document.querySelectorAll(`section:not(#${activeTab})`).forEach((section) => {
+    section.classList.add('collapse');
+  });
+
+  document.querySelector(`#${activeA}`).classList.add('active');
+  document.querySelectorAll(`.navigation-bar a:not(#${activeA})`).forEach((section) => {
+    section.classList.remove('active');
+  });
+}
 
 document.querySelector('.date').innerHTML = new Date();
