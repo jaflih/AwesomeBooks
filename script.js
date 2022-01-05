@@ -97,18 +97,6 @@ document.querySelector('#add_button').addEventListener('click', (event) => {
 MANAGER.loadBooks();
 
 //
-document.querySelector('#add_new').addEventListener('click', () => {
-  navigation('add_books', 'add_new');
-});
-
-document.querySelector('#contact').addEventListener('click', () => {
-  navigation('contact-information', 'contact');
-});
-
-document.querySelector('#list').addEventListener('click', () => {
-  navigation('book_list', 'list');
-});
-
 function navigation(activeTab, activeA) {
   document.querySelector(`#${activeTab}`).classList.remove('collapse');
   document.querySelectorAll(`section:not(#${activeTab})`).forEach((section) => {
@@ -120,5 +108,17 @@ function navigation(activeTab, activeA) {
     section.classList.remove('active');
   });
 }
+
+document.querySelector('#add_new').addEventListener('click', () => {
+  navigation('add_books', 'add_new');
+});
+
+document.querySelector('#contact').addEventListener('click', () => {
+  navigation('contact-information', 'contact');
+});
+
+document.querySelector('#list').addEventListener('click', () => {
+  navigation('book_list', 'list');
+});
 
 document.querySelector('.date').innerHTML = new Date();
