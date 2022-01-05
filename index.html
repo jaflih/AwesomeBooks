@@ -12,7 +12,7 @@
       <nav class="navigation-bar">
         <h2>Awesome Books</h2>
         <ul>
-          <li><a id="list" href="#book_list">List</a></li>
+          <li><a class="active" id="list" href="#book_list">List</a></li>
           <li><a id="add_new" href="#add_books">Add New</a></li>
           <li><a id="contact" href="#contact-information">Contact</a></li>
         </ul>
@@ -26,15 +26,27 @@
     <section id="add_books" class="collapse">
       <form>
         <h2>Add a new Book</h2>
-        <input type="text" class="text" name="title" placeholder="Title" required />
-        <input type="text" class="text" name="author" placeholder="Author" required />
+        <input
+          type="text"
+          class="text"
+          name="title"
+          placeholder="Title"
+          required
+        />
+        <input
+          type="text"
+          class="text"
+          name="author"
+          placeholder="Author"
+          required
+        />
         <small class="message"></small>
         <input id="add_button" type="button" value="Add" />
       </form>
     </section>
-    <section id="contact-information" class="collapse">
+    <section id="contact-information" class="collapse contact-information">
       <h2>Contact Information</h2>
-      <p>Do you have any questions or you just want to say "Hello"</p>
+      <p>Do you have any questions or you just want to say "Hello"?</p>
       <p>You can reach out to us !</p>
       <ul>
         <li>Email : mail@mail.com</li>

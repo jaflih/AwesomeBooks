@@ -24,7 +24,7 @@ footer {
   border: 3px solid black;
   margin: 1rem;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   padding: 1rem;
 }
 
@@ -35,19 +35,34 @@ footer {
   padding-left: 0;
 }
 
+.navigation-bar ul li a {
+  color: #000;
+  text-decoration: none;
+  border-right: 1px solid black;
+  padding: 0 1rem;
+}
+
 .navigation-bar ul li:nth-last-child(1) a {
   border-right: none;
+  padding-right: 0;
+}
+
+form h2 {
+  margin-top: 30px;
 }
 
 .navigation-bar h2 {
   font-size: 16px;
 }
 
-.navigation-bar ul li a {
-  color: #000;
-  text-decoration: none;
-  border-right: 1px solid black;
-  padding: 0 1rem;
+.navigation-bar ul li:nth-last-child(3) a {
+  color: rgb(58, 169, 206);
+}
+
+.date {
+  font-size: 14px;
+  text-align: end;
+  margin-right: 1rem;
 }
 
 h1 {
@@ -58,10 +73,6 @@ h1 {
   margin: 10px 10px 50px 10px;
 }
 
-.collapse {
-  display: none;
-}
-
 #book_list li {
   padding: 10px;
   display: flex;
@@ -70,6 +81,10 @@ h1 {
 
 #book_list li:nth-child(odd) {
   background-color: #80808057;
+}
+
+.contact-information ul {
+  margin-top: 2rem;
 }
 
 #book_list ul {
@@ -83,10 +98,6 @@ h1 {
   background-color: white;
   border: 2px solid black;
   box-shadow: 3px 2px 1px black;
-}
-
-form h2 {
-  margin-top: 30px;
 }
 
 form {
@@ -111,6 +122,24 @@ input {
 ::placeholder {
   color: black;
   opacity: 1;
+}
+
+.contact-information {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-information h2 {
+  margin: 2.5rem 1rem;
+  align-self: center;
+}
+
+.contact-information p {
+  margin: 0 2rem;
+}
+
+.collapse {
+  display: none;
 }
 
 @media screen and (min-width: 700px) {
@@ -144,5 +173,9 @@ input {
 
   .navigation-bar ul {
     font-size: 18px;
+  }
+
+  .contact-information {
+    align-self: center;
   }
 }

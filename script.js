@@ -97,20 +97,31 @@ document.querySelector('#add_button').addEventListener('click', (event) => {
 MANAGER.loadBooks();
 
 //
-document.querySelector('#add_new').addEventListener('click', (event) => {
+document.querySelector('#add_new').addEventListener('click', () => {
+  document.querySelector('#add_new').style.color = 'rgb(58, 169, 206)';
+  document.querySelector('#list').style.color = 'black';
+  document.querySelector('#contact').style.color = 'black';
   document.querySelector('#book_list').classList.add('collapse');
   document.querySelector('#add_books').classList.remove('collapse');
   document.querySelector('#contact-information').classList.add('collapse');
 });
 
-document.querySelector('#contact').addEventListener('click', (event) => {
+document.querySelector('#contact').addEventListener('click', () => {
+  document.querySelector('#add_new').style.color = 'black';
+  document.querySelector('#list').style.color = 'black';
+  document.querySelector('#contact').style.color = 'rgb(58, 169, 206)';
   document.querySelector('#book_list').classList.add('collapse');
   document.querySelector('#add_books').classList.add('collapse');
   document.querySelector('#contact-information').classList.remove('collapse');
 });
 
-document.querySelector('#list').addEventListener('click', (event) => {
+document.querySelector('#list').addEventListener('click', () => {
+  document.querySelector('#contact').style.color = 'black';
+  document.querySelector('#add_new').style.color = 'black';
+  document.querySelector('#list').style.color = 'rgb(58, 169, 206)';
   document.querySelector('#book_list').classList.remove('collapse');
   document.querySelector('#add_books').classList.add('collapse');
   document.querySelector('#contact-information').classList.add('collapse');
 });
+
+document.querySelector('.date').innerHTML = new Date();
