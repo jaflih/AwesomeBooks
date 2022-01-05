@@ -3,9 +3,23 @@
 * {
   font-family: 'Comic Sans MS', 'Comic Sans', cursive;
   margin: 0;
+  box-sizing: border-box;
 }
 
-.navigation-bar {
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#book_list,
+#add_books,
+#contact-information {
+  flex-grow: 3;
+}
+
+.navigation-bar,
+footer {
   display: flex;
   border: 3px solid black;
   margin: 1rem;
@@ -17,6 +31,16 @@
 .navigation-bar ul {
   list-style: none;
   display: flex;
+  font-size: 13px;
+  padding-left: 0;
+}
+
+.navigation-bar ul li:nth-last-child(1) a {
+  border-right: none;
+}
+
+.navigation-bar h2 {
+  font-size: 16px;
 }
 
 .navigation-bar ul li a {
@@ -112,5 +136,13 @@ input {
   #add_button:hover {
     background-color: #1b1b1b57;
     color: #fff;
+  }
+
+  .navigation-bar h2 {
+    font-size: 22px;
+  }
+
+  .navigation-bar ul {
+    font-size: 18px;
   }
 }

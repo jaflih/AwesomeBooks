@@ -95,3 +95,22 @@ document.querySelector('#add_button').addEventListener('click', (event) => {
 });
 
 MANAGER.loadBooks();
+
+//
+document.querySelector('#add_new').addEventListener('click', (event) => {
+  document.querySelector('#book_list').classList.add('collapse');
+  document.querySelector('#add_books').classList.remove('collapse');
+  document.querySelector('#contact-information').classList.add('collapse');
+});
+
+document.querySelector('#contact').addEventListener('click', (event) => {
+  document.querySelector('#book_list').classList.add('collapse');
+  document.querySelector('#add_books').classList.add('collapse');
+  document.querySelector('#contact-information').classList.remove('collapse');
+});
+
+document.querySelector('#list').addEventListener('click', (event) => {
+  document.querySelector('#book_list').classList.remove('collapse');
+  document.querySelector('#add_books').classList.add('collapse');
+  document.querySelector('#contact-information').classList.add('collapse');
+});
